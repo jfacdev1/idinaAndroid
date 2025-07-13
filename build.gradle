@@ -3,7 +3,7 @@
 buildscript {
     ext {
         // Core versions
-        kotlin_version = '1.9.23'
+        kotlin_version = '2.1.21'
         agp_version = '8.11.1'
         
         // Dependency versions
