@@ -124,12 +124,6 @@ subprojects {
 // Configure project properties
 ext.disablePreDex = false
 
-// Configure build scan
-buildScan {
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
-    publishAlways()
-}
 
 // Configure Java toolchain
 java {
