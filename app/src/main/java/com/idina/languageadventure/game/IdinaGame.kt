@@ -17,8 +17,16 @@ class IdinaGame(private val context: Context) : com.badlogic.gdx.Game() {
     lateinit var modelBatch: ModelBatch
     lateinit var environment: Environment
     private var currentScreen: Screen? = null
+
+    fun onVoiceCommand(command: String) {
+        if (currentScreen is VoiceCommandHandler) {
+            (currentScreen as VoiceCommandHandler).onVoiceCommand(command)
+        }
+    }
     
     override fun create() {
+        // Set initial screen to NeoTokyo
+        setScreen(NeoTokyoScreen(this))
         // Initialize camera
         camera = PerspectiveCamera(67f, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
         camera.position.set(0f, 5f, 10f)
