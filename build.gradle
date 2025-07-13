@@ -31,13 +31,7 @@ buildscript {
         google_services_version = '4.3.15'
     }
     
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://maven.google.com' }
-        maven { url 'https://jitpack.io' }
-        maven { url 'https://plugins.gradle.org/m2/' }
-    }
+
     
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version"
@@ -54,17 +48,7 @@ buildscript {
 
 // Configure all projects
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://maven.google.com' }
-        maven { url 'https://jitpack.io' }
-        maven { url 'https://jitpack.io' }
-        
-        // LibGDX repository
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
-    }
+
     
     // Configure all projects with common settings
     afterEvaluate { project ->
