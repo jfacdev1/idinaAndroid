@@ -8,6 +8,9 @@ import com.idina.languageadventure.R
 import com.idina.languageadventure.game.IdinaGame
 
 class MainActivity : AndroidApplication(), VoiceRecognizer.Listener {
+    override fun onVoiceCommand(command: String) {
+        game.onVoiceCommand(command)
+    }
     
     private lateinit var game: IdinaGame
     private lateinit var voiceRecognizer: VoiceRecognizer
