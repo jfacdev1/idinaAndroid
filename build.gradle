@@ -120,8 +120,6 @@ subprojects {
     }
 }
 
-// Enable Gradle's configuration cache for better build performance
-enableFeaturePreview('STABLE_CONFIGURATION_CACHE')
 
 // Configure project properties
 ext.disablePreDex = false
