@@ -155,9 +155,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     
-    // Voice Recognition
-    implementation 'com.google.mlkit:speech-recognition:17.0.1'
-    implementation 'com.google.android.gms:play-services-mlkit-speech-recognition:17.0.1'
+
+
+
     
     // Image Loading
     implementation 'com.github.bumptech.glide:glide:4.16.0'
@@ -169,8 +169,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     
-    // Performance Monitoring
-    implementation 'com.google.firebase:perf-ktx:20.3.2'
+
+
     
     // Memory Leak Detection (Debug Only)
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
