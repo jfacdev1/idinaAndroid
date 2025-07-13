@@ -32,6 +32,10 @@ buildscript {
     }
     
 
+    repositories {
+        google()
+        mavenCentral()
+    }
     
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version"
