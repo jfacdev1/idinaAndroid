@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.g3d.Environment
 import com.badlogic.gdx.graphics.g3d.ModelBatch
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight
-import com.badlogic.gdx.utils.viewport.ScreenViewport
+import android.view.View
+import com.badlogic.gdx.backends.android.AndroidApplication
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 
 class IdinaGame(private val context: Context) : com.badlogic.gdx.Game() {
     
@@ -49,7 +51,10 @@ class IdinaGame(private val context: Context) : com.badlogic.gdx.Game() {
         // setScreen(LoadingScreen(this))
     }
     
-    fun getView() = initializeForView(ScreenViewport())
+    fun getView(): View {
+        val config = AndroidApplicationConfiguration()
+        return (context as AndroidApplication).initializeForView(this, config)
+    }
     
     override fun setScreen(screen: Screen?) {
         currentScreen?.hide()
