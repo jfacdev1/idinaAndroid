@@ -42,7 +42,7 @@ class IdinaGame(private val context: Context) : com.badlogic.gdx.Game() {
         environment = Environment()
         environment.set(ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f))
         environment.add(DirectionalLight().apply {
-            set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f
+            set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f)
         })
         
         // Set the initial screen (e.g., loading screen or main menu)
