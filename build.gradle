@@ -63,11 +63,11 @@ allprojects {
     afterEvaluate { project ->
         if (project.hasProperty('android')) {
             android {
-                compileSdk 33
+                compileSdk 35
                 
                 defaultConfig {
                     minSdk 24
-                    targetSdk 33
+                    targetSdk 35
                     
                     // Enable Java 8 features
                     compileOptions {
