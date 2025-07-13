@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">IDINA Language Adventure</string>
+    <string name="loading">Loading IDINA...</string>
+    
+    <!-- Language Selection -->
+    <string name="select_language">Select Language</string>
+    <string name="spanish">Spanish (Español)</string>
+    <string name="english">English</string>
+    <string name="french">French (Français)</string>
+    
+    <!-- Common UI -->
+    <string name="start">Start</string>
+    <string name="continue_game">Continue</string>
+    <string name="settings">Settings</string>
+    <string name="exit">Exit</string>
+    
+    <!-- Voice Recognition -->
+    <string name="speak_now">Speak now…</string>
+    <string name="listening">Listening…</string>
+    <string name="voice_not_recognized">Voice not recognized. Please try again.</string>
+    
+    <!-- Error Messages -->
+    <string name="error_loading">Error loading game. Please try again.</string>
+</resources>

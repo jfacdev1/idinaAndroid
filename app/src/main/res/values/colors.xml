@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Primary Colors -->
+    <color name="primary">#FF3F51B5</color>
+    <color name="primary_dark">#FF303F9F</color>
+    <color name="primary_light">#FFC5CAE9</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent">#FF4081</color>
+    <color name="accent_dark">#F50057</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#DE000000</color>
+    <color name="text_secondary">#8A000000</color>
+    <color name="text_hint">#42000000</color>
+    
+    <!-- Background Colors -->
+    <color name="background">#FFF5F5F5</color>
+    <color name="surface">#FFFFFFFF</color>
+    
+    <!-- Error and Success -->
+    <color name="error">#FF5252</color>
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FFC107</color>
+    
+    <!-- Game Specific Colors -->
+    <color name="spanish_red">#E63946</color>
+    <color name="french_blue">#1D3557</color>
+    <color name="british_red">#C8102E</color>
+</resources>
