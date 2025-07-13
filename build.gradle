@@ -1,29 +1,200 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kotlin_version = '1.8.0'
-        agp_version = '7.4.2'
+        // Core versions
+        kotlin_version = '1.8.22'
+        agp_version = '8.1.0'
+        
+        // Dependency versions
+        nav_version = '2.7.1'
+        koin_version = '3.4.0'
+        
+        // AndroidX versions
+        core_ktx_version = '1.10.1'
+        appcompat_version = '1.6.1'
+        material_version = '1.9.0'
+        constraint_layout_version = '2.1.4'
+        lifecycle_version = '2.6.1'
+        room_version = '2.5.2'
+        
+        // Testing
+        junit_version = '4.13.2'
+        ext_junit_version = '1.1.5'
+        espresso_core_version = '3.5.1'
+        mockk_version = '1.13.5'
+        coroutines_test_version = '1.7.1'
+        
+        // Firebase
+        firebase_bom_version = '32.2.0'
+        firebase_crashlytics_gradle_version = '2.9.7'
+        firebase_perf_gradle_version = '1.4.2'
+        google_services_version = '4.3.15'
     }
+    
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
+    
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "com.google.gms:google-services:$google_services_version"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$firebase_crashlytics_gradle_version"
+        classpath "com.google.firebase:perf-plugin:$firebase_perf_gradle_version"
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+// Configure all projects
 allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://jitpack.io' }
+        
+        // LibGDX repository
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+    }
+    
+    // Configure all projects with common settings
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            android {
+                compileSdk 33
+                
+                defaultConfig {
+                    minSdk 24
+                    targetSdk 33
+                    
+                    // Enable Java 8 features
+                    compileOptions {
+                        sourceCompatibility JavaVersion.VERSION_1_8
+                        targetCompatibility JavaVersion.VERSION_1_8
+                    }
+                    
+                    kotlinOptions {
+                        jvmTarget = '1.8'
+                    }
+                }
+                
+                buildFeatures {
+                    viewBinding true
+                    dataBinding true
+                }
+                
+                // Enable R8/ProGuard
+                buildTypes {
+                    debug {
+                        minifyEnabled false
+                        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    }
+                    release {
+                        minifyEnabled true
+                        shrinkResources true
+                        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    }
+                }
+            }
+        }
     }
 }
 
+// Task to clean the build directory
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+// Configure Java compilation for all projects
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+                
+                kotlinOptions {
+                    jvmTarget = '1.8'
+                }
+            }
+        }
+    }
+}
+
+// Enable Gradle's configuration cache for better build performance
+enableFeaturePreview('STABLE_CONFIGURATION_CACHE')
+
+// Configure project properties
+ext.disablePreDex = false
+
+// Configure build scan
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+    publishAlways()
+}
+
+// Configure Java toolchain
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+// Configure Kotlin compilation
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += [
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xjvm-default=all"
+        ]
+    }
+}
+
+// Configure test tasks
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
+
+// Configure Android test options
+// Configure all subprojects
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += [
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xjvm-default=all"
+        ]
+    }
+}
+
+// Configure test options for all projects
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            android {
+                testOptions {
+                    unitTests {
+                        includeAndroidResources = true
+                        returnDefaultValues = true
+                    }
+                }
+            }
+        }
+    }
 }

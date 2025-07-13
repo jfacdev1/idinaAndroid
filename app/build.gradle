@@ -2,66 +2,191 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
-    compileSdkVersion 33
+    namespace 'com.idina.languageadventure'
+    compileSdk 33
     
     defaultConfig {
         applicationId "com.idina.languageadventure"
-        minSdkVersion 24
-        targetSdkVersion 33
+        minSdk 24
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Enable multidex for large app support
+        multiDexEnabled true
+        
+        // Enable vector drawable support
+        vectorDrawables.useSupportLibrary = true
+        
+        // Enable OpenGL ES 3.0 for better 3D graphics
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+                arguments "-DANDROID_STL=c++_static"
+            }
+        }
+        
+        ndk {
+            // Filter for supported ABIs
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
     }
     
     buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     
     compileOptions {
+        // Enable Java 8 features
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += [
+            "-Xopt-in=kotlin.RequiresOptIn"
+        ]
     }
     
     buildFeatures {
         viewBinding true
+        prefab true
+    }
+    
+    // Enable data binding if needed
+    buildFeatures {
+        dataBinding true
+    }
+    
+    // Enable view binding
+    buildFeatures {
+        viewBinding true
+    }
+    
+    // Enable Java 8 features for D8/R8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    // Enable Java 8 features for Kotlin
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    
+    // Enable data binding
+    dataBinding {
+        enabled = true
+    }
+}
+
+// Configure Java compilation
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     // Core Android dependencies
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-ktx:1.7.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
     
     // 3D Graphics (LibGDX)
     implementation "com.badlogicgames.gdx:gdx-backend-android:1.11.0"
     implementation "com.badlogicgames.gdx:gdx-box2d:1.11.0"
     implementation "com.badlogicgames.gdx:gdx:1.11.0"
+    implementation "com.badlogicgames.gdx:gdx-platform:1.11.0:natives-armeabi-v7a"
+    implementation "com.badlogicgames.gdx:gdx-platform:1.11.0:natives-arm64-v8a"
+    implementation "com.badlogicgames.gdx:gdx-platform:1.11.0:natives-x86"
+    implementation "com.badlogicgames.gdx:gdx-platform:1.11.0:natives-x86_64"
+    
+    // 3D Physics and Bullet
+    implementation "com.badlogicgames.gdx:gdx-bullet:1.11.0"
+    implementation "com.badlogicgames.gdx:gdx-bullet-platform:1.11.0:natives-armeabi-v7a"
+    implementation "com.badlogicgames.gdx:gdx-bullet-platform:1.11.0:natives-arm64-v8a"
+    implementation "com.badlogicgames.gdx:gdx-bullet-platform:1.11.0:natives-x86"
+    implementation "com.badlogicgames.gdx:gdx-bullet-platform:1.11.0:natives-x86_64"
+    
+    // Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    
+    // Architecture Components
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-process:2.6.1'
+    
+    // Koin for Dependency Injection
+    implementation 'io.insert-koin:koin-android:3.4.0'
+    implementation 'io.insert-koin:koin-androidx-navigation:3.4.0'
+    implementation 'io.insert-koin:koin-androidx-compose:3.4.0'
+    
+    // Navigation Component
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+    
+    // Room Database
+    def room_version = "2.5.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     
     // Voice Recognition
     implementation 'com.google.mlkit:speech-recognition:17.0.1'
+    implementation 'com.google.android.gms:play-services-mlkit-speech-recognition:17.0.1'
     
-    // Dependency Injection
-    implementation 'org.koin:koin-android:3.3.3'
-    implementation 'org.koin:koin-androidx-viewmodel:3.3.3'
+    // Image Loading
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    kapt 'com.github.bumptech.glide:compiler:4.15.1'
     
-    // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    
+    // Performance Monitoring
+    implementation 'com.google.firebase:perf-ktx:20.3.2'
+    
+    // Memory Leak Detection (Debug Only)
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
     
     // Testing
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'io.mockk:mockk:1.13.5'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.5'
+    
+    // Debug tools
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 }

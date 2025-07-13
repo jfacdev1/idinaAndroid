@@ -1,0 +1,31 @@
+// Top-level settings for the IDINA Language Adventure project
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+        
+        // LibGDX repositories
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+    }
+}
+
+// Enable Gradle's configuration cache for better build performance
+enableFeaturePreview('STABLE_CONFIGURATION_CACHE')
+
+// Project structure
+rootProject.name = "IDINA"
+include ':app'
