@@ -25,8 +25,8 @@ class IdinaGame(private val context: Context) : com.badlogic.gdx.Game() {
     }
     
     override fun create() {
-        // Set initial screen to NeoTokyo
-        setScreen(NeoTokyoScreen(this))
+        // Set initial screen to Italian city
+        setScreen(ItalianScreen(this))
         // Initialize camera
         camera = PerspectiveCamera(67f, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
         camera.position.set(0f, 5f, 10f)
